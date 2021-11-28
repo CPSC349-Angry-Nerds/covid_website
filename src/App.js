@@ -1,5 +1,6 @@
-import Table from './components/table/Table'
+import Graph from './components/graph/Graph'
 import Map from './components/map/Map'
+import Table from './components/table/Table';
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
         <Map />
       </div>
       <Table/>
+      <Graph/>
     </div>
   );
 }
