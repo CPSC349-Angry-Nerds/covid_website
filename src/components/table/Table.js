@@ -1,94 +1,96 @@
-import React, {useEffect, useState} from 'react';
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-} from 'chart.js';
-import { Bar } from 'react-chartjs-2';
-import moment from 'moment';
+import React, { useEffect, useState, useMemo } from "react";
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend
-);
+import { useTable } from "react-table";
+import moment from "moment";
+import "./Table.css"
 
 export default function Table() {
-    const [label, setLabels] = useState([]);
-    const [negativeData, setNegativeData] = useState([]);
-    const [positiveData, setPostiveData] = useState([]);
+  const columns = useMemo(
+    () => [
+      {
+        Header: "United States",
+        accessor: 'date',
+      },
+      {
+        Header: 'Negative',
+        accessor: 'col1',
+      },
+      {
+        Header: 'Positive',
+        accessor: 'col2',
+      },
+    ],
+    []
+  )
+  
+  const [NPDataObj, setNPDataObj] = useState([]);
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await fetch(
+          `https://api.covidtracking.com/v1/us/daily.json`
+        );
+        const body = await result.json();
+        const dataObj = []
 
-    useEffect(() => {
-        const fetchData = async () => {
-          try {
-            const result = await fetch(
-            `https://api.covidtracking.com/v1/us/daily.json`);
-            const body = await result.json();
-            const dateArr = [];
-            const negArr = [];
-            const posArr = [];
-            for(let i = 100; i >= 0; i=i-10){
-                var a = moment(body[i].date, "YYYYMMDD").format("MMM Do");
-                dateArr.push(a)
-                negArr.push(body[i].negative);
-                posArr.push(body[i].positive);
-                console.log(body[i]);
-            }
-            setLabels(dateArr);
-            setNegativeData(negArr);
-            setPostiveData(posArr);
-          } catch(err) {
-           
-          } 
+        for (let i = 100; i >= 0; i = i - 10) {
+          var a = moment(body[i].date, "YYYYMMDD").format("MMM Do");
+          const dObj = {
+            date: a,
+            col1: body[i].negative,
+            col2: body[i].positive
+          }
+          dataObj.push(dObj);
+          console.log(body[i]);
         }
-    
-        fetchData();
-        
-        return () => {
-        }
-    
-      }, []);
-     
-    const options = {
-        responsive: true,
-        plugins: {
-          legend: {
-            position: 'top',
-          },
-          title: {
-            display: true,
-            text: 'Overall USA Covid Data',
-          },
-        },
-      };
-      
-    const labels = label;
+        setNPDataObj(dataObj);
+      } catch (err) {}
+    };
+    fetchData();
+    return () => {};
+  }, []);
 
-    const data = {
-        labels,
-        datasets: [
-          {
-            label: 'Postive',
-            data: positiveData,
-            backgroundColor: 'rgba(255, 99, 132, 0.5)',
-          },
-          {
-            label: 'Negative',
-            data: negativeData,
-            backgroundColor: 'rgba(53, 162, 235, 0.5)',
-          },
-        ],
-      };
-    return (
-        <div>
-            <Bar options={options} data={data} />
-        </div>
-    )
+  const data = useMemo(() => NPDataObj, [NPDataObj])
+
+  const tableInstrance = useTable({
+    columns,
+    data,
+  });
+
+  const { 
+    getTableProps, 
+    getTableBodyProps, 
+    headerGroups, 
+    rows, 
+    prepareRow 
+  } = tableInstrance;
+
+  return (
+    <div>
+      <table {...getTableProps()}>
+        <thead>
+          {headerGroups.map((headerGroup) => (
+            <tr {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map((column) => (
+                <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+              ))}
+          </tr>
+          ))}
+        </thead>
+        <tbody {...getTableBodyProps()}>
+          {rows.map(row => {
+            prepareRow(row)
+            return (
+              <tr {...row.getRowProps()}>
+                {row.cells.map((cell) => {
+                  return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                })}
+              </tr>
+            )
+          })}
+        </tbody>
+      </table>
+    </div>
+  );
 }
