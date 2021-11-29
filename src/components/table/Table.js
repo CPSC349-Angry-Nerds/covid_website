@@ -2,26 +2,14 @@ import React, { useEffect, useState, useMemo } from "react";
 
 import { useTable } from "react-table";
 import moment from "moment";
-import "./Table.css"
+import "./Table.css";
+// import {columns1, columns2} from "./COLUMNS";
+import PropTypes from 'prop-types';
 
-export default function Table() {
-  const columns = useMemo(
-    () => [
-      {
-        Header: "United States",
-        accessor: 'date',
-      },
-      {
-        Header: 'Negative',
-        accessor: 'col1',
-      },
-      {
-        Header: 'Positive',
-        accessor: 'col2',
-      },
-    ],
-    []
-  )
+export default function Table({TCol, TDataKind, TableType}) {
+  const columns = useMemo(() => TCol,[]);
+
+  
   
   const [NPDataObj, setNPDataObj] = useState([]);
   
@@ -29,21 +17,36 @@ export default function Table() {
     const fetchData = async () => {
       try {
         const result = await fetch(
-          `https://api.covidtracking.com/v1/us/daily.json`
+          `https://api.covidtracking.com${TDataKind}`
         );
         const body = await result.json();
         const dataObj = []
 
-        for (let i = 100; i >= 0; i = i - 10) {
-          var a = moment(body[i].date, "YYYYMMDD").format("MMM Do");
-          const dObj = {
-            date: a,
-            col1: body[i].negative,
-            col2: body[i].positive
+        if (TableType === 1) {
+          for (let i = 100; i >= 0; i = i - 10) {
+            var a = moment(body[i].date, "YYYYMMDD").format("MMM Do");
+            const dObj = {
+              date: a,
+              col1: body[i].negative,
+              col2: body[i].positive
+            }
+            dataObj.push(dObj);
+            // console.log(body[i]);
           }
-          dataObj.push(dObj);
-          console.log(body[i]);
+        } else if (TableType === 2) {
+          for (let i = 56; i >= 0; i = i - 1) {
+            
+            const dObj = {
+              state: body[i].state,
+              col1: body[i].negative,
+              col2: body[i].positive
+            }
+            dataObj.push(dObj);
+            console.log(body[i]);
+          }
         }
+
+
         setNPDataObj(dataObj);
       } catch (err) {}
     };
@@ -93,4 +96,16 @@ export default function Table() {
       </table>
     </div>
   );
+}
+
+Table.defaultProps = {
+  // TCol: columns1,
+  TDataKind: '/v1/us/daily.json',
+  TableType: 1,
+}
+
+Table.propTypes = {
+  TCol: PropTypes.object,
+  TDataKind: PropTypes.string,
+  TableType: PropTypes.number,
 }
