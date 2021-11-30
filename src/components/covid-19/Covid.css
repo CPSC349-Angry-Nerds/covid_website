@@ -1,7 +1,6 @@
 .topnav {
     background-color: #99CCFF;
     font-size: 17px;
-    max-width: 1300px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
