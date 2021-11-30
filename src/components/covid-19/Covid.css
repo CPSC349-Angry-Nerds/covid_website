@@ -1,8 +1,7 @@
 .topnav {
-    text-align: center center;
-    height: 100px;
-    background-color: #0edfb8;
+    background-color: #99CCFF;
     font-size: 17px;
+    max-width: 1300px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -15,11 +14,11 @@
 }
 
 .barry-mask-logo {
-    width: 100x;
+    width: 100px;
     height: 100px;
 }
 
 .barry-gas-logo {
-    width: 100x;
+    width: 100px;
     height: 100px;
 }
