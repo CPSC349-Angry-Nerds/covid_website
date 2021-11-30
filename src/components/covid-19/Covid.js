@@ -3,16 +3,17 @@ import './Covid.css';
 
 function Covid() {
     return (
+        <container>
+    
          <header class="topnav">
-             <div class= "u-centered">
-                 <h1>Angry Nerds: COVID-19 Website</h1>
-                 <div className="icon-container row">
-                 <div className="icon-img1 col-3">
-                 <img className="covid19" src="static/covid19.png " alt="Covid" />
+             <img className="barry-mask-logo" src="static/barry-mask.png" alt="Barry Mask"/>
+             <div>
+                <h1>Angry Nerds: Covid-19 Website</h1>
              </div>
-             </div>
-             </div>
+             <img className="barry-gas-logo" src="static/barry-gas.png" alt="Barry Mask"/>
+            
          </header>
+         </container>
     );
 }
 
