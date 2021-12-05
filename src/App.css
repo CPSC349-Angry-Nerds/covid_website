@@ -1,3 +1,4 @@
 .t-g-container {
-
+    display: flex;
+    justify-content: space-around;
 }

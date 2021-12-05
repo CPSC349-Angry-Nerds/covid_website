@@ -3,14 +3,11 @@ import React, { useEffect, useState, useMemo } from "react";
 import { useTable } from "react-table";
 import moment from "moment";
 import "./Table.css";
-// import {columns1, columns2} from "./COLUMNS";
+import {columns1} from "./COLUMNS";
 import PropTypes from 'prop-types';
 
-export default function Table({TCol, TDataKind, TableType}) {
-  const columns = useMemo(() => TCol,[]);
-
-  
-  
+export default function Table({TCol, TDataKind, TableType,}) {
+  const columns = useMemo(() => ColType(TCol),[TCol]);
   const [NPDataObj, setNPDataObj] = useState([]);
   
   useEffect(() => {
@@ -34,15 +31,19 @@ export default function Table({TCol, TDataKind, TableType}) {
             // console.log(body[i]);
           }
         } else if (TableType === 2) {
+          
           for (let i = 56; i >= 0; i = i - 1) {
-            
             const dObj = {
               state: body[i].state,
               col1: body[i].negative,
               col2: body[i].positive
             }
-            dataObj.push(dObj);
-            console.log(body[i]);
+
+            if (body[i].state != null && body[i].negative != null && body[i].positive != null) {
+              dataObj.push(dObj);
+            }
+            // dataObj.push(dObj);
+            // console.log(body[i]);
           }
         }
 
@@ -99,13 +100,17 @@ export default function Table({TCol, TDataKind, TableType}) {
 }
 
 Table.defaultProps = {
-  // TCol: columns1,
+  TCol: columns1,
   TDataKind: '/v1/us/daily.json',
   TableType: 1,
 }
 
 Table.propTypes = {
-  TCol: PropTypes.object,
+  TCol: PropTypes.array,
   TDataKind: PropTypes.string,
   TableType: PropTypes.number,
+}
+
+function ColType(t) {
+  return t
 }
