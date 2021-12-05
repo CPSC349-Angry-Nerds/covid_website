@@ -1,14 +1,15 @@
 import Graph from "./components/graph/Graph";
 import Map from "./components/map/Map";
 import Table from "./components/table/Table";
-import Covid from "./components/covid-19/Covid";
+// import Covid from "./components/covid-19/Covid";
 import { columns1, columns2 } from "./components/table/COLUMNS";
+import "./App.css"
 
 function App() {
   return (
     <div>
       <div>
-        <Covid />
+        {/* <Covid /> */}
       </div>
       <div className="container-lg App pb-5 px-5">
         <div className=" px-5">
