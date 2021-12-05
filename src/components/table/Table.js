@@ -53,7 +53,7 @@ export default function Table({TCol, TDataKind, TableType,}) {
     };
     fetchData();
     return () => {};
-  }, []);
+  });
 
   const data = useMemo(() => NPDataObj, [NPDataObj])
 
