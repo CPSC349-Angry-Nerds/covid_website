@@ -4,7 +4,7 @@ import { useTable } from "react-table";
 import moment from "moment";
 import "./Table.css";
 import {columns1} from "./COLUMNS";
-import PropTypes from 'prop-types';
+
 
 export default function Table({TCol, TDataKind, TableType,}) {
   const columns = useMemo(() => ColType(TCol),[TCol]);
@@ -103,12 +103,6 @@ Table.defaultProps = {
   TCol: columns1,
   TDataKind: '/v1/us/daily.json',
   TableType: 1,
-}
-
-Table.propTypes = {
-  TCol: PropTypes.array,
-  TDataKind: PropTypes.string,
-  TableType: PropTypes.number,
 }
 
 function ColType(t) {
