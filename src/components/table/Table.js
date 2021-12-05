@@ -5,6 +5,7 @@ import moment from "moment";
 import "./Table.css";
 import {columns1} from "./COLUMNS";
 
+
 export default function Table({TCol, TDataKind, TableType,}) {
   const columns = useMemo(() => ColType(TCol),[TCol]);
   const [NPDataObj, setNPDataObj] = useState([]);
