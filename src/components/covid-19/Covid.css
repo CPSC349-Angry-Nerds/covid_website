@@ -7,10 +7,16 @@
 
 }
 
-.covid19 {
+h1 {
+    padding: 20px;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color:floralwhite;
+}
+
+/* .covid19 {
     display: block;
     width: 17%;
-}
+} */
 
 .barry-mask-logo {
     width: 100px;
@@ -21,3 +27,4 @@
     width: 100px;
     height: 100px;
 }
+
