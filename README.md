@@ -9,7 +9,7 @@
 Install the node dependencies 
 
 ```
-npm install
+npm i
 ```
 
 ## Running the application
