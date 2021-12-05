@@ -40,7 +40,7 @@ export default function Graph() {
           dateArr.push(a);
           negArr.push(body[i].negative);
           posArr.push(body[i].positive);
-          console.log(body[i]);
+          // console.log(body[i]);
         }
         setLabels(dateArr);
         setNegativeData(negArr);
