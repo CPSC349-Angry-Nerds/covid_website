@@ -1,0 +1,23 @@
+.topnav {
+    background-color: #99CCFF;
+    font-size: 17px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+}
+
+.covid19 {
+    display: block;
+    width: 17%;
+}
+
+.barry-mask-logo {
+    width: 100px;
+    height: 100px;
+}
+
+.barry-gas-logo {
+    width: 100px;
+    height: 100px;
+}
