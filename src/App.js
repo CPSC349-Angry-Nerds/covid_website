@@ -35,7 +35,7 @@ function App() {
       </div>
       <h2 className="text">Source data: </h2>
       <h2> The COVID Tracking Project by The Atlantic Monthly Group</h2>
-      <h2> Link: https://covidtracking.com/</h2>
+      <h2> Link: <a href="https://covidtracking.com/">https://covidtracking.com/</a></h2>
     </div>
 
   );
