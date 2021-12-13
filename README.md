@@ -1,6 +1,5 @@
 # Angry Nerds - Covid-19 Website
 
-* [Presentation](link here)
 
 ## Live Application
 
